@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+//gcc -std=c89 c89.c -o c89
+
 int main()
 {
 	int i;
