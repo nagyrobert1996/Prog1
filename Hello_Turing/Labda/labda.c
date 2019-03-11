@@ -1,5 +1,7 @@
+#include<stdio.h>
 #include<stdlib.h>
 #include<unistd.h>
+#include<math.h>
 
 #define SZEL 78
 #define MAG 22
