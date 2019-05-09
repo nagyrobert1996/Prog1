@@ -1,0 +1,179 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Schwarzenegger!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title>Szoftmax Py MNIST</title>
+        <para>
+            Python
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Ezt a fealadatot az SMNIST for Human-nal helyettesítettem.
+        </para>
+    </section>        
+
+<!--
+
+    <section>
+        <title>Szoftmax R MNIST</title>
+        <para>
+            R            
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+    </section>        
+
+
+-->
+
+
+
+    <section>
+        <title>Mély MNIST</title>
+        <para>
+            Python            
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Ezt a fealadatot az SMNIST for Human-nal helyettesítettem.
+        </para>
+    </section>        
+
+<!--
+
+    <section>
+        <title>Deep dream</title>
+        <para>
+            Keras            
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+    </section>
+
+
+-->	
+                  
+    <section>
+        <title>Minecraft-MALMÖ</title>
+        <para>
+            Megoldás forrása: <link xlink:href="https://github.com/nagyrobert1996/Prog1/tree/master/Schwarzenegger">https://github.com/nagyrobert1996/Prog1/tree/master/Schwarzenegger</link>
+        </para>
+        <para>Ebben a feladatban a Minecraftnak a MALMÖ projektével foglalkozunk. Ezt a projektet a Microsoft hozta létre és a mesterséges inteligencia kutatására használják. A MALMÖ célja hogy megtanítja a programnak a Minecraft karakter irányítását és annak életben tartását. Ehhez a feladathoz pedig a pyton nyelvet használjuk.</para>
+		<para>Maga a project megtalálható a GitHub-on és onnan be is lehet szerezni. Megtalálható a project is és hozzá tutorialok is.</para>
+		<para>Most kezdjük el vizsgálni a kódot.</para>
+		
+		
+<programlisting language="Python"><![CDATA[
+  <ServerSection>
+	<ServerHandlers>
+	  <FlatWorldGenerator generatorString="3;7,220*1,5*3,2;3;,biome_1"/>
+	  <DrawingDecorator>
+			<DrawSphere x="-27" y="70" z="0" radius="30" type="air"/>
+	  </DrawingDecorator>
+	  <ServerQuitFromTimeUp timeLimitMs="360000"/>
+	  <ServerQuitWhenAnyAgentFinishes/>
+	</ServerHandlers>
+  </ServerSection>
+  
+  <AgentSection mode="Survival">
+	<Name>ZORZBot</Name>
+	<AgentStart/>
+	<AgentHandlers>
+	  <ObservationFromFullStats/>
+	  <ContinuousMovementCommands turnSpeedDegs="180"/>
+	</AgentHandlers>
+  </AgentSection>
+</Mission>'''
+
+]]>
+</programlisting>
+
+		
+		<para>A kód ezen része XML-ként van tárolva. Ebben a részben hozzuk létre magát világot amiben a karakter majd mozog és itt adjuk meg azt is hogy milyen módban iduljon el a játék. Ezekhez az alábbi sorokat kell tekinteni. A világ létrehozása: <![CDATA[<FlatWorldGenerator generatorString="3;7,220*1,5*3,2;3;,biome_1"/>]]>. A játékmód kiválasztása: <![CDATA[<AgentSection mode="Survival">]]>. A kód többi része további beállításokat tartalmaz. Például azt hogy mennyi ideig tartson a küldetés.</para>
+		
+		<para>Mielőtt magára a küldetés részére térnénk a kódnak még néhány változóról meg kell határozni hogy mi is. A stevex, stevey és stevez hatázozzák meg magának a karakternek a pozícióját. A steveyaw adja meg hogy a karakter milyen irányba néz és a stevepitch pedig magát a nézetet. Az elotteidx, elotteidxj és elotteidxb pedig arra hivatott hogy megvizsgáljuk hogy van-e valamilyen akadály a karakter előtt.</para>
+		
+		<para>Miután ezeket a változókat létrehoztuk már nincs más hátra mint kezdőértéket adni nekik és utána kezdődhet is a számolás és a karakter mozgatása. A kezdőértékeket az alábbi módon állítjuk be.</para>
+		
+		
+<programlisting language="Python"><![CDATA[
+
+if "Yaw" in observations:
+	steveyaw = observations["Yaw"]
+if "Pitch" in observations:
+	stevepitch = observations["Pitch"]
+if "XPos" in observations:
+	stevex = observations["XPos"]
+if "ZPos" in observations:
+	stevez = observations["ZPos"]
+if "YPos" in observations:
+	stevey = observations["YPos"]
+
+]]>
+</programlisting>
+		
+		
+		<para>Miután az értékeket beállítottuk és a mozgás halad akkor már csak annyi van hogy a karakternek dönteni kell hogy ha akadály van akkor mit tegyen. Meg tud fordulni, ugrani tud vagy pedig támadni. Valamint az akadály változó értékét növeljük.</para>
+		
+		
+<programlisting language="Python"><![CDATA[
+
+if nbr[elotteidx+9]!="air" or nbr[elotteidxj+9]!="air" or nbr[elotteidxb+9]!="air":
+	print ("Nincs szabad utam, elottem: ", nbr[elotteidx+9])
+	agent_host.sendCommand ("turn" + str(turn))
+	akadaly = akadaly + 1
+else:
+	print ("Szabad az ut!")
+	agent_host.sendCommand ("turn 0")
+	agent_host.sendCommand ("jump 0")
+	agent_host.sendCommand ("attack 0")
+	akadaly = 0
+	
+if akadaly > 8:
+	agent_host.sendCommand ("jump 1")
+
+lepes = lepes + 1
+if lepes > 100:
+lepes = 0
+if tav < 20:
+	prevstevex = stevex
+	prevstevez = stevez
+	prevstevey = stevey
+	turn = turn * -1
+	agent_host.sendCommand ("attack 1")
+
+]]>
+</programlisting>
+		
+		
+    </section>        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+</chapter>                

@@ -1,0 +1,110 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Gutenberg!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+        <cover>
+            <para>
+                Programozás tankönyvek rövid olvasónaplói.
+            </para>
+        </cover>
+    </info>
+	
+	
+	
+	
+    <section>
+        <title>Juhász István: Magas Szintű Programozási Nyelvek 1</title>
+        
+		
+		<para><command>1. fejezet</command></para>
+		<para>Ez a fejezet a programozás bevezetéséről szól. Abból indul ki a fejezet, hogy miért használunk programokat és hogy miért modellezzük csak a világot. A teljes világunk ugyanis túl összetett, teljességében nem tudjuk feldolgozni, ezért van szükség modellekre. Megismerkedünk a legalapvetőbb fogalmakkal. Például a programozási nyelvek különböző fajtáival és hogy ezek miből épülnek fel. Szó esik továbbá a programnyelvek osztályozásáról, hogy ezek lehetnek imperatív és deklaratívak. A fejezet végén pedig megtudjuk hogyan kell jegyzeteket használni és hogy a jegyzetelésből nem lehet megtanulni programozni.</para>
+		
+		
+		
+		<para><command>2. fejezet</command></para>
+		<para>Ebben a fejezetben a program kódok alapvető építőelemeiről van szó. Megismerjük hogy egy programnyelv milyen karakterkészletből épül fel, mik azok a lexikális egységek és hogy azon belül milyen fajtái vannak. Megtudjuk továbbá hogyan kell felépíteni a kódot és abban miket lehet használni. Gondolok itt a változók típusaira, egyszerű és összetett típusra egyaránt. Szó van továbbá a mutatókról is és hogy egyes nyelvekben miként kell deklarálni a változókat.</para>
+		
+		
+		
+		<para><command>3. fejezet</command></para>
+		<para>A fejezetben közelebbről megismerkedünk a C nyelv egy részével. Konkrétan az operátorokkal. Az operátorok olyan jelek melyek segítségével műveleteket lehet leírni a programnyelvben. Ilyen például az összeadás művelete vagy akár a kisebb művelet. Ezen felül kapunk egy precedencia táblázatot is a fejezetben. Így tehát azt is megtudjuk hogy a műveletek között melyik az erősebb, vagyis melyik értékelődik ki hamarabb.</para>
+		
+		
+		
+		
+		
+		
+    </section>
+
+
+	
+    <section>
+        <title>Kernighan-Ritchie: A C programozási nyelv</title>
+		
+        <para><command>1. fejezet</command></para>
+        <para>Az első fejezetben megismerjük a C programozási nyelv legalapvetőbb építőelemeit és példákon keresztül megismerjük ezek egyszerű használatát. Felhívnám a figyelmet arra hogy bár alapvető dolgokról van szó de rendkívül jelentősek és nem elhanyagolhatók. Hiszen ezen egyszerű dolgok az alap építőkövei a C programnyelvnek. A fejezetben szó volt a legalapvetőbb dologról, úgy mint képernyőre íratás,változók típusai, for ciklusok,tömbök. Valamint szó esett arról is hogyan kell szimbolikus állandókat létrehozni a <command>#define</command> segítségével és hogyan lehet létrehozni egyszerű függvényeket és azokra hívatkozni. A fejezet végén pedig megnéztük mit jelent az érték szerinti hívás, a tömbök egy speciális fajtáját, a karaktertömböt is átvizsgáltuk és a külső változókról is meg tudtuk hogy mit jelentenek.</para>
+		
+		
+		
+		<para><command>2. fejezet</command></para>
+		<para>Ebben a fejezetben nagy hangsúlyt fektet a könyv a változókra, a velük végezhető műveletekre, a logikai utasításokra és a fejezet végén az elágazásról is kapunk információt. A fejezet elején megimerjük hogy vannak kulcsszavak melyek nem lehetnek változó nevek valamint hogy egy jó név hogyan épül fel. Azt is meg tudjuk hogy az egyes változók mekkora méreten vannak tárolva, valamint hogy egy állandót hogyan kell létrehozni amit később aztán nem lehet megváltoztatni. Szó esik továbbá arról is hogyan kell létrehozni változókat kezdőérték nélkül, vagy akár kezdőértékkel is. Ezekkel milyen műveletek végezhetőek, úgy mint két int változó összeadása vagy akár szorzása. De azt is megtudjuk hogyan lehet őket összehasonlítani hogy melyik a kisebb vagy egyenlőek-e. Két változóval ha valamilyen műveletet akarunk végrehajtani akkor azoknak egy fatájúnak kell lenniük. Ehhez van hogy át kell alakítani őket. Ennek mikéntjére is kapunk segítséget a könyvből. Továbbá megismerjük az inkrementáló, dekrementáló és bitenkénti logikai operátorokat is. A fejezet végén pedig van egy táblázat ami magába foglalja az operátorokat és azok kiértékelési sorrendjét. Végül pedig szó volt a fejezetben azelágazásokról is.</para>
+		
+		
+		
+		<para><command>3. fejezet</command></para>
+		<para>Ez a fejezet a vezérlési szerkezetékről szól. Megismerjük mit jelent egy utasítás és hogy mi az hogy blokk. Ezen kívül részletesebben megismerjük az elágazás mibenlétét. Meg tudjuk hogy az elágazásokat lehetőségünk van egymásba ágyazni vagy akár többszörösen összetett elágazásokat létrehozni. A többszörösen összetett elágazásnak két módja van. Az egyik az else-if, a másik a switch. A két féle elágazás nem egyforma annak ellenére mindegyik arra szolgál hogy föbb felé ágazzunk el. Szó van továbbá a ciklusokról és azok fajtájáról. Megnézzük hogyan épülnek fel a while, a do-while és for ciklusok. Melyiket milyen esetben érdemes használni és hogy miként kell őket kódban felépíteni. A fejezet végén pedig szó van három utasításról. Név szerint ezek a break, a continue és a goto. Ezek arra szolgálnak hogy a ciklusokban apró vagy akár nagyobb ugrásokat tehessünk meg, ha szükséges.</para>
+		
+		
+		
+		
+		
+		
+    </section>
+
+
+
+
+	
+    <section>
+	
+	
+	
+        <title>Levendovszky-Benedek: Szoftverfejlesztés C++ nyelven</title>
+		
+		
+        
+		<para><command>1. fejezet</command></para>
+		<para>A könyv bevezetése.</para>
+		
+		
+		
+		<para><command>2. fejezet</command></para>
+		<para>A fejezet célja hogy bemutassa hogy a C++ milyen újításokat hozott C programnyelvhez ezáltal új nyelvet létrehozva. Egyes újítások kényelmi szerepet töltenek be, míg más újítások új lehetőségeket tártak fel. Egyik ilyen újítás hogy a függvényeknél C-ben az üres paraméter lista az tetszőleges paramétert jelent míg C++-ban ez üres paraméter listát jelent. Másik újítás a main függvénynél van. Lehetőség van megadni két paramétert neki amely a parancssori argomentukban játszik szerepet. Továbbá a C++-ban bevezetésre került a bool típusú változó amely az igaz, hamis eldöntésekben nyújt kényelmi funkciót. További újítás hogy ebben a nyelvben már több helyen van lehetőség változót létrehozni, valamint hogy egy güggvénynevet többször is fel lehet használni ha a paraméterlistájuk különbözik. Ez azért nagyon jó mert így nem kell erőltetett neveket kitalálni egy-egy függvénynek. Ezen felül újabb lehetőség hogy függvény deklarálásnál módunkban áll a paramétereknek alapértelmezett értéket megadni, így akár azokkal is dolgozhatunk. A fejezet végén pedig szó esik arról hogy mit jelent a referencia szerinti átadás és hogy ennek milyen előnyei és hasznai vannak.</para>
+		
+		
+		
+		
+		<para><command>3. fejezet</command></para>
+		<para>A fejezet témája az obijektum orientáltság és annak részei. Elsőnek megemlíti hogy miért van szükség és miért hasznos az ilyen fajta programozás. Ez után szó van a struktúrákról és azok szerepéről. Kitárgyalja hogy mit jelent maga a struktúra, azon belül is a tagváltozó. Továbbá hogy a tagfüggvények mit jelentenek és azoknak miként lehet hatáskört beállítani. A fejezet beszél továbbá az adatrejtésről is. Ez azt jelenti hogy be lehet állítani hogy a program egyes részei <command>public</command> vagy <command>private</command> beállítást kapjanak. Erre azért lehet szükség mert így meg lehet adni hogy milyen szinten lehet az adott részt felhasználni. Bemutatja továbbá a konstruktort és a destruktort is. Ezeknek jelentős szerepe van az osztályokba. A konstruktor feladata hogy inicializálja a változókat ezáltal egy kezdőértéket állítva a változóknak. A destruktor épp az ellentéte. Az ő feladata hogy amikor már nincs szükség a változókra akkor felszabadítja a helyüket. A dinamikus adattagokat tartalmazó osztályokról is szó van a fejezetben. A dinamikus adattagokat úgy lehet létrehozni hogy használjuk a <command>new</command> kulcsszót. Ezzel nem csinálunk mást csak helyet foglalunk az adattagnak a memóriában. Ha pedig már nem lesz rá szükség akkor a helyet a <command>delete</command> kulcsszóval lehet felszabadítani. Szó esik még ezen adattagok támogatásáról és a másolókonstruktorokról is. A másolókonstruktorok szerepe hogy lehetőséget biztosítanak egy ugyan olyan felépítésű adatszerkezet lemásolására mint az eredeti.A friend függvények és osztályok is szerepelnek a fejezetben. Ezek olyan függvények és osztályok amelyek alapból nem az általunk használt osztálynak a részei ám még is lehetőségünk van hozzáférni a másik osztály védett részeihez azáltal hogy használjuk a <command>friend</command> kulcsszót. A fejezet végéhez közeledve megismerjük még azt is hogy mi a különbség az inicializálás és az értékadás között, valamint a statikus tagok szerepéről is megtudunk néhány dolgot. Legvégül pedig arra is kitér ez a rész hogy az egymásba ágyazott definíciók hogyan néznek ki. Gondolok itt olyanra mint például az osztályon belüli osztály.</para>
+		
+		
+		
+		
+		
+		
+		<para><command>4. fejezet</command></para>
+		<para>Ebben a fejezetben a fő téma a konstansok. A programozásban sok féle konstanst lehet használni és itt ezeket vesszük sorra. Elsőnek a konstans változókról értekezik a fejezet. Leírja azok szerepét és hogy hogyan lehet őket használni. Ez után a pointerek körében lévő konstansok szerepét írja le. Megtudjuk hogy két féle konstans pointer van, az egyik mikor az érték konstans, amásik mikor maga a pointer konstans. Továbbá vannak még konstans függvényparaméterek, tagváltozók, tagfüggvények. Ezeknek mind más-más szerepük van de mindegyik lényege az hogy úgymond állandók tehát nem lehet őket megváltoztatni. Van azonban egy kivételes eset is amit megemlít a fejezet. Ez a mutable. Ezt egy konstans tagfüggvényen belül használjuk ha abban meg akarjuk változtatni egy változó értékét, ám azt akarjuk hogy maga a függvény mégis konstansként legyen értelmezve. Ekkor használjuk a <command>mutable</command> kulcsszót. A fejezet vége felé pedig szó van a konstans és a nem konstans közötti konverzióról is. Nem konstansot lehetőség van konstanssá tenni fordítva viszont ez nem lehetséges. Legvégül pedig szóba kerülnek az inline függvények és azok szerepe is.</para>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    </section>        
+</chapter>                

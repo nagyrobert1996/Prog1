@@ -1,0 +1,490 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Caesar!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title><type>double **</type> háromszögmátrix</title>
+        
+		
+		<para>
+            Megoldás forrása:                <link xlink:href="https://github.com/nagyrobert1996/Prog1/tree/master/Caesar/H%C3%A1romsz%C3%B6gm%C3%A1trix">https://github.com/nagyrobert1996/Prog1/tree/master/Caesar/H%C3%A1romsz%C3%B6gm%C3%A1trix</link>
+        </para>
+        
+		<para>Ebben a programban alsó háromszögmátrixot hozunk létre. Hogy ezt létre tudjuk hozni először is tisztáznunk kell hogy mi az az alsó háromszögmátrix. Ehhez pedig tudnunk kell hogy mi az a mátrix. A mátrix egy olyan vektor melynek két dimenziója van. Tehát rendelkezik sorokkal és oszlopokkal is. Az alsó háromszögmátrix pedig egy olyan speciális fajtája ennek amelyben a főátló feletti összes érték 0, valamint a mátrix négyzetes.</para>
+
+
+
+<programlisting language="c"><![CDATA[
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+int
+main ()
+{
+    int nr = 5;
+    double **tm;
+    
+    printf("%p\n", &tm);
+    
+    if ((tm = (double **) malloc (nr * sizeof (double *))) == NULL)
+    {
+        return -1;
+    }
+
+    printf("%p\n", tm);
+    
+    for (int i = 0; i < nr; ++i)
+    {
+        if ((tm[i] = (double *) malloc ((i + 1) * sizeof (double))) == NULL)
+        {
+            return -1;
+        }
+
+    }
+
+    printf("%p\n", tm[0]);    
+    
+    for (int i = 0; i < nr; ++i)
+        for (int j = 0; j < i + 1; ++j)
+            tm[i][j] = i * (i + 1) / 2 + j;
+
+    for (int i = 0; i < nr; ++i)
+    {
+        for (int j = 0; j < i + 1; ++j)
+            printf ("%f, ", tm[i][j]);
+        printf ("\n");
+    }
+
+    tm[3][0] = 42.0;
+    (*(tm + 3))[1] = 43.0;	// mi van, ha itt hiányzik a külső ()
+    *(tm[3] + 2) = 44.0;
+    *(*(tm + 3) + 3) = 45.0;
+
+    for (int i = 0; i < nr; ++i)
+    {
+        for (int j = 0; j < i + 1; ++j)
+            printf ("%f, ", tm[i][j]);
+        printf ("\n");
+    }
+
+    for (int i = 0; i < nr; ++i)
+        free (tm[i]);
+
+    free (tm);
+
+    return 0;
+}
+
+
+]]></programlisting> 
+
+
+
+<mediaobject>
+            <imageobject>
+                <imagedata fileref="doublecscs.png" scale="40" />
+            </imageobject>
+        </mediaobject>
+
+
+
+
+
+
+
+
+		
+    </section>        
+    <section>
+        <title>C EXOR titkosító</title>
+        <para>
+            Írj egy EXOR titkosítót C-ben!
+        </para>
+        <para>
+            Megoldás forrása:                <link xlink:href="https://github.com/nagyrobert1996/Prog1/tree/master/Caesar/C_titkos%C3%ADt%C3%B3">https://github.com/nagyrobert1996/Prog1/tree/master/Caesar/C_titkos%C3%ADt%C3%B3</link>
+        </para>
+        <para>Ez a fajta titkosító módszer nagyon régi és elég egyszerű elven alapul. Van egy titkosítandó szövegünk és egy kulcsunk amivel titkosítunk. A módszerlényege hogy a kulcsot - ami lehet egy akármilyen karakterlánc - átváltjuk bitekre és a szöveget is. Ezután a szövegen és a kulcson végrehajtja a kizáró vagyot. Ez úgy működik hogy a szöveg alá helyezzük a kulcs bitjeit és ahol a bitek megegyeznek oda a titkosítás során 0-t írunk ahol különböznek oda pedig 1-est. A művelet végrehajtása után pedig egy titkosított szöveget kapunk ami értelmezhetetlen. Ahhoz hogy ismét olvashatóvá váljon a kulcs segítségével vissza kell fejteni az eredeti szöveget.</para> 
+
+		<para>Az alábbi programban erre a titkosítóra látunk egy konkrét kódot. Úgy működik hogy a program megkapja a kulcsot és a titkosítandó szöveget. A szöveget elkezdi beolvasni a bufferbe és a kulcs segítségével elkezdi a titkosítást. Mikor végzett az adott résszel, akkor azt kiírja egy eredmény fájlba és beolvassa a szöveg következő részét a bufferbe. Ezt a folyamatot addig ismétli amíg a teljes szöveget nem titkosítja.</para>
+
+
+<programlisting language="c"><![CDATA[
+
+
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+
+#define MAX_KULCS 100
+#define BUFFER_MERET 256
+
+
+int
+main (int argc, char **argv)
+{
+
+  char kulcs[MAX_KULCS];	//ebben a változóban tároljuk a kulcsot
+  char buffer[BUFFER_MERET];		//ide olvassa be a szöveget
+
+  int kulcs_index = 0;
+  int olvasott_bajtok = 0;
+
+  int kulcs_meret = strlen (argv[1]);
+  strncpy (kulcs, argv[1], MAX_KULCS);
+
+  while ((olvasott_bajtok = read (0, (void *) buffer, BUFFER_MERET)))
+    {
+
+      for (int i = 0; i < olvasott_bajtok; ++i)
+	{
+
+	  buffer[i] = buffer[i] ^ kulcs[kulcs_index];		//itt hajtódik végre a titkosítás
+	  kulcs_index = (kulcs_index + 1) % kulcs_meret;
+
+	}
+
+      write (1, buffer, olvasott_bajtok);
+
+    }
+}
+
+
+
+]]></programlisting> 
+
+
+
+
+
+
+
+
+
+		
+    </section>        
+    <section>
+        <title>Java EXOR titkosító</title>
+        <para>
+            Írj egy EXOR titkosítót Java-ban!
+        </para>
+        <para>
+            Megoldás forrása:                <link xlink:href="https://github.com/nagyrobert1996/Prog1/tree/master/Caesar/Java_titkos%C3%ADt%C3%B3">https://github.com/nagyrobert1996/Prog1/tree/master/Caesar/Java_titkos%C3%ADt%C3%B3</link>
+        </para>
+        <para>Az előző feladathoz hasonlóan ez a program is az EXOR-os titkosítást végzi el. A különbség annyi hogy ez a kód java nyelven van írva és tartalmaz obijektum orientált részeket. Ilyen például a class. További különbség hogy ez a kód a titkosítandó szöveget nem egy fájlból olvassa be hanem a felhasználónak kell begépelni a standart inputon keresztül. A program további működési elve ugyanaz.</para>
+
+
+
+<programlisting language="java"><![CDATA[
+
+public class ExorTitkosító {
+    
+    public ExorTitkosító(String kulcsSzöveg,
+            java.io.InputStream bejövőCsatorna,
+            java.io.OutputStream kimenőCsatorna)
+            throws java.io.IOException {
+        
+        byte [] kulcs = kulcsSzöveg.getBytes();		//ebben a változóban tároljuk a kulcsot
+        byte [] buffer = new byte[256];			//ide olvassa be a szöveget
+        int kulcsIndex = 0;
+        int olvasottBájtok = 0;
+
+        while((olvasottBájtok =
+                bejövőCsatorna.read(buffer)) != -1) {
+            
+            for(int i=0; i<olvasottBájtok; ++i) {
+                
+                buffer[i] = (byte)(buffer[i] ^ kulcs[kulcsIndex]);		//itt hajtódik végre a titkosítás
+                kulcsIndex = (kulcsIndex+1) % kulcs.length;
+                
+            }
+            
+            kimenőCsatorna.write(buffer, 0, olvasottBájtok);
+            
+        }
+        
+    }
+    
+    public static void main(String[] args) {
+        
+        try {
+            
+            new ExorTitkosító(args[0], System.in, System.out);
+            
+        } catch(java.io.IOException e) {
+            
+            e.printStackTrace();
+            
+        }
+        
+    }
+    
+}
+
+
+]]></programlisting> 
+
+
+
+
+
+
+
+
+		
+    </section>        
+    <section>
+        <title>C EXOR törő</title>
+        <para>
+            Írj egy olyan C programot, amely megtöri az első feladatban előállított titkos szövegeket!
+        </para>
+        <para>
+            Megoldás forrása:                <link xlink:href="https://github.com/nagyrobert1996/Prog1/tree/master/Caesar/C_t%C3%B6r%C5%91">https://github.com/nagyrobert1996/Prog1/tree/master/Caesar/C_t%C3%B6r%C5%91</link>
+        </para>
+        <para>Ebben a részben az előző két feladat ellentéte szerepel. AMíg ott a titkosítás volt a cél addig ennél a feladatnál a feltörés a cél. A program megkapja a titkosított szöveget és elkezdi keresni a feloldáshoz szükséges kulcsot, amely 5 karakter hosszú és az angol abc betűit tartalmazza. A törés elve a brute force módszer. Egyesével kipróbál minden lehetséges kulcsot amíg meg nem találja a megfelelőt. Amikor végzett a töréssel akkor pedig teszteli is az eredményt. A tiszta_lehet azt vizsgálja hogy a megadott kulcsszavak szerepelnek-e a tiszta szöbvegbe, ha igen akkor valószínűleg helyes a törés.</para> 
+
+
+
+<programlisting language="c"><![CDATA[
+
+
+#define MAX_TITKOS 4096
+#define OLVASAS_BUFFER 256
+#define KULCS_MERET 5
+#define _GNU_SOURCE
+
+#include <stdio.h>
+#include <unistd.h>
+#include <string.h>
+
+double
+atlagos_szohossz (const char *titkos, int titkos_meret)
+{
+  int sz = 0;
+  for (int i = 0; i < titkos_meret; ++i)
+    if (titkos[i] == ' ')
+      ++sz;
+
+  return (double) titkos_meret / sz;
+}
+
+int
+tiszta_lehet (const char *titkos, int titkos_meret)
+{
+  // a tiszta szoveg valszeg tartalmazza a gyakori magyar szavakat
+  // illetve az átlagos szóhossz vizsgálatával csökkentjük a
+  // potenciális töréseket
+
+  double szohossz = atlagos_szohossz (titkos, titkos_meret);
+
+  return szohossz > 6.0 && szohossz < 9.0
+    && strcasestr (titkos, "hogy") && strcasestr (titkos, "nem")
+    && strcasestr (titkos, "az") && strcasestr (titkos, "ha");
+
+}
+
+void
+exor (const char kulcs[], int kulcs_meret, char titkos[], int titkos_meret)
+{
+
+  int kulcs_index = 0;
+
+  for (int i = 0; i < titkos_meret; ++i)
+    {
+
+      titkos[i] = titkos[i] ^ kulcs[kulcs_index];
+      kulcs_index = (kulcs_index + 1) % kulcs_meret;
+
+    }
+
+}
+
+int
+exor_tores (const char kulcs[], int kulcs_meret, char titkos[],
+	    int titkos_meret)
+{
+
+  exor (kulcs, kulcs_meret, titkos, titkos_meret);
+
+  return tiszta_lehet (titkos, titkos_meret);
+
+}
+
+int
+main (void)
+{
+
+  char kulcs[KULCS_MERET];
+  char titkos[MAX_TITKOS];
+  char *p = titkos;
+  int olvasott_bajtok;
+  //itt tároljuk azokat a karaktereket amik a kulcs karakterei lehetnek
+  char kod[28]= {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+
+  // titkos fajt berantasa
+  while ((olvasott_bajtok =
+	  read (0, (void *) p,
+		(p - titkos + OLVASAS_BUFFER <
+		 MAX_TITKOS) ? OLVASAS_BUFFER : titkos + MAX_TITKOS - p)))
+    p += olvasott_bajtok;
+
+  // maradek hely nullazasa a titkos bufferben  
+  for (int i = 0; i < MAX_TITKOS - (p - titkos); ++i)
+    titkos[p - titkos + i] = '\0';
+
+  // osszes kulcs eloallitasa
+  for (int ii = 0; ii <= 28; ++ii)
+    for (int ji = 0; ji <= 28; ++ji)
+      for (int ki = 0; ki <= 28; ++ki)
+		for (int li = 0; li <= 28; ++li)
+	  		for (int mi = 0; mi <= 28; ++mi)
+		  {
+		    kulcs[0] = kod[ii];
+		    kulcs[1] = kod[ji];
+		    kulcs[2] = kod[ki];
+		    kulcs[3] = kod[li];
+		    kulcs[4] = kod[mi];
+
+		    if (exor_tores (kulcs, KULCS_MERET, titkos, p - titkos))
+			{
+		      printf
+			("Kulcs: [%c%c%c%c%c]\nTiszta szoveg: [%s]\n",
+			 kod[ii], kod[ji], kod[ki], kod[li], kod[mi], titkos);
+				return 0;
+			}
+
+		    // ujra EXOR-ozunk, igy nem kell egy masodik buffer  
+		    exor (kulcs, KULCS_MERET, titkos, p - titkos);
+		  }
+
+  return 0;
+}
+
+
+]]></programlisting> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+    </section>        
+    <section>
+        <title>Neurális OR, AND és EXOR kapu</title>
+        <para>
+            R
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://github.com/nagyrobert1996/Prog1/tree/master/Caesar/Neur%C3%A1lis">https://github.com/nagyrobert1996/Prog1/tree/master/Caesar/Neur%C3%A1lis</link>               
+        </para>
+        <para>Ebben a feladatban az agy feldolgozó részét képző neurális háló szimulálása a feladat. A neurális háló lényege hogy képes arra, hogy párhuzamosan információt dolgozzon fel és adott szabályok alapján tanuljon. Megkapja tőlünk az a1 és a2 vektorokat valamint hogy az OR műveletet végrehajtva rajta milyen eredményt kell neki adnia. Ez után pedig megkezdődik a tanulás. A kapott adatok alapján megtanulja hogy az OR művelet esetén milyen eredményt kell neki visszaadnia.</para>
+		<para>Az AND művelet esetén szintén ez a folyamat megy végbe. Megkapja az alap eseteket és az alapján megtanulja hogy adott bemenet esetén milyen eredményt kell neki adnia.</para>
+		<para>Az EXOR is hasonlóan működik bár ott van egy kis eltérés. Az eltérés annyiban jelentkezik hogy ott többrétegű neuronokkal kell dolgozni.</para>
+
+
+<programlisting language="R"><![CDATA[
+
+
+
+library(neuralnet)
+
+a1    <- c(0,1,0,1)		#az első vektor értékei
+a2    <- c(0,0,1,1)		#a második vektor értékei
+OR    <- c(0,1,1,1)		#az OR művelet ereményei
+
+or.data <- data.frame(a1, a2, OR)
+
+nn.or <- neuralnet(OR~a1+a2, or.data, hidden=0, linear.output=FALSE, stepmax = 1e+07, threshold = 0.000001)
+
+plot(nn.or)
+
+compute(nn.or, or.data[,1:2])
+
+
+a1    <- c(0,1,0,1)		#az első vektor értékei
+a2    <- c(0,0,1,1)		#a második vektor értékei
+OR    <- c(0,1,1,1)		#az OR művelet ereményei
+AND   <- c(0,0,0,1)		#az AND művelet ereményei
+
+orand.data <- data.frame(a1, a2, OR, AND)
+
+nn.orand <- neuralnet(OR+AND~a1+a2, orand.data, hidden=0, linear.output=FALSE, stepmax = 1e+07, threshold = 0.000001)
+
+plot(nn.orand)
+
+compute(nn.orand, orand.data[,1:2])
+
+
+
+a1      <- c(0,1,0,1)		#az első vektor értékei
+a2      <- c(0,0,1,1)		#a második vektor értékei
+EXOR    <- c(0,1,1,0)		#az EXOR művelet ereményei
+
+exor.data <- data.frame(a1, a2, EXOR)
+
+nn.exor <- neuralnet(EXOR~a1+a2, exor.data, hidden=0, linear.output=FALSE, stepmax = 1e+07, threshold = 0.000001)
+
+plot(nn.exor)
+
+compute(nn.exor, exor.data[,1:2])
+
+
+
+a1      <- c(0,1,0,1)
+a2      <- c(0,0,1,1)
+EXOR    <- c(0,1,1,0)
+
+exor.data <- data.frame(a1, a2, EXOR)
+
+nn.exor <- neuralnet(EXOR~a1+a2, exor.data, hidden=c(6, 4, 6), linear.output=FALSE, stepmax = 1e+07, threshold = 0.000001)
+
+plot(nn.exor)
+
+compute(nn.exor, exor.data[,1:2])
+
+
+
+
+]]></programlisting> 
+
+
+
+
+
+
+
+
+
+
+		
+    </section>        
+    <section>
+        <title>Hiba-visszaterjesztéses perceptron</title>
+        <para>
+            C++
+        </para>
+        <para>
+            Megoldás forrása:<link xlink:href="https://github.com/nbatfai/nahshon/blob/master/ql.hpp#L64">https://github.com/nbatfai/nahshon/blob/master/ql.hpp#L64</link> 
+        </para>
+        <para>Ennél a feladatnál egy kép segítségével a bináris osztályozást fogjuk "megtanítani" a számítógépnek. A program kapni fog egy png fájlt amelyen a Mandelbrot halmaz látható. Ezt a képet adjuk át a perceptronnak és meghatározzuk a rétegek számát a neurális hálóba. Valamint még azt is meg kell adnunk hogy az egyes rétegeken hány neuront szeretnénk létrehozni. Ha ez megvan akkor elindul a program és a neurális háló segítségével megtanulja, és végrehajtja a bináris osztályozást a képen. A megtanuláshoz mint ahogy az előző feladatban is szó volt róla meg kell adni neki az alap eseteket és ebből fogja tudni mit hogyan osztályozzon. A bináris osztályozás jól prezentálható egyesekkel és nullákkal.</para>
+
+
+
+		
+    </section>        
+        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                

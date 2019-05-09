@@ -1,0 +1,110 @@
+<revhistory xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <revision>
+        <revnumber>0.0.1</revnumber>
+        <date>2019-02-12</date>
+        <authorinitials>nbatfai</authorinitials>
+        <revremark>
+            Az iniciális dokumentum szerkezetének kialakítása.
+        </revremark>
+    </revision>
+    <revision>
+        <revnumber>0.0.2</revnumber>
+        <date>2019-02-14</date>
+        <authorinitials>nbatfai</authorinitials>
+        <revremark>
+            Inciális feladatlisták összeállítása.
+        </revremark>
+    </revision>    
+    <revision>
+        <revnumber>0.0.3</revnumber>
+        <date>2019-02-16</date>
+        <authorinitials>nbatfai</authorinitials>
+        <revremark>
+            Feladatlisták folytatása.
+            Feltöltés a BHAX csatorna 
+            <link xlink:href="https://gitlab.com/nbatfai/bhax">https://gitlab.com/nbatfai/bhax</link>
+            repójába.
+        </revremark>
+    </revision>
+    <revision>
+        <revnumber>0.0.4</revnumber>
+        <date>2019-03-05</date>
+        <authorinitials>csrobert</authorinitials>
+        <revremark>
+            A Turing fejezet befejezése
+        </revremark>
+    </revision>
+	<revision>
+        <revnumber>0.0.5</revnumber>
+        <date>2019-03-12</date>
+        <authorinitials>csrobert</authorinitials>
+        <revremark>
+            A Gutenberg fejezet beillesztése
+        </revremark>
+    </revision>
+     <revision>
+        <revnumber>0.0.6</revnumber>
+        <date>2019-03-12</date>
+        <authorinitials>csrobert</authorinitials>
+        <revremark>
+            A Chomsky fejezet befejezése
+        </revremark>
+    </revision>
+    <revision>
+        <revnumber>0.0.7</revnumber>
+        <date>2019-03-19</date>
+        <authorinitials>csrobert</authorinitials>
+        <revremark>
+            A Caesar fejezet befejezése
+        </revremark>
+    </revision>
+    <revision>
+        <revnumber>0.0.8</revnumber>
+        <date>2019-03-26</date>
+        <authorinitials>csrobert</authorinitials>
+        <revremark>
+            A Mandelbrot fejezet befejezése
+        </revremark>
+    </revision>
+    <revision>
+        <revnumber>0.0.9</revnumber>
+        <date>2019-04-02</date>
+        <authorinitials>csrobert</authorinitials>
+        <revremark>
+            A Welch fejezet befejezése
+        </revremark>
+    </revision>
+    <revision>
+        <revnumber>0.1.0</revnumber>
+        <date>2019-04-09</date>
+        <authorinitials>csrobert</authorinitials>
+        <revremark>
+            A Conway fejezet befejezése
+        </revremark>
+    </revision>
+    <revision>
+        <revnumber>0.1.1</revnumber>
+        <date>2019-04-23</date>
+        <authorinitials>csrobert</authorinitials>
+        <revremark>
+            A Schwarzenegger fejezet befejezése
+        </revremark>
+    </revision>
+    <revision>
+        <revnumber>0.1.2</revnumber>
+        <date>2019-04-30</date>
+        <authorinitials>csrobert</authorinitials>
+        <revremark>
+            A Chaitin fejezet befejezése
+        </revremark>
+    </revision>
+     <revision>
+        <revnumber>1.0.0</revnumber>
+        <date>2019-05-09</date>
+        <authorinitials>csrobert</authorinitials>
+        <revremark>
+            A könyv befejezése
+        </revremark>
+    </revision>
+
+</revhistory>
